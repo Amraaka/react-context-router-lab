@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import './pages.css';
 
 // Simple regex-based email validator
 const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -108,18 +107,28 @@ function Authenticate() {
   };
 
   return (
-    <div className="page-container page-container--narrow">
-      <div className="auth-card">
+    <div className="mx-auto w-full max-w-lg px-4 py-10 sm:px-6">
+      <div className="overflow-hidden rounded-2xl bg-white shadow-xl shadow-slate-900/10">
         {/* ── Tab switcher ───────────────────────────────────────────── */}
-        <div className="auth-tabs">
+        <div className="flex border-b border-slate-100">
           <button
-            className={`auth-tab ${isLogin ? 'auth-tab--active' : ''}`}
+            type="button"
+            className={`flex-1 px-4 py-3 text-sm font-medium transition-colors ${
+              isLogin
+                ? 'border-b-2 border-rose-500 bg-white text-rose-500'
+                : 'bg-slate-50 text-slate-500 hover:bg-slate-100'
+            }`}
             onClick={() => switchMode(true)}
           >
             Login
           </button>
           <button
-            className={`auth-tab ${!isLogin ? 'auth-tab--active' : ''}`}
+            type="button"
+            className={`flex-1 px-4 py-3 text-sm font-medium transition-colors ${
+              !isLogin
+                ? 'border-b-2 border-rose-500 bg-white text-rose-500'
+                : 'bg-slate-50 text-slate-500 hover:bg-slate-100'
+            }`}
             onClick={() => switchMode(false)}
           >
             Sign Up
@@ -127,15 +136,17 @@ function Authenticate() {
         </div>
 
         {/* ── Form ───────────────────────────────────────────────────── */}
-        <form onSubmit={handleSubmit} className="auth-form" noValidate>
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4 px-6 py-6 sm:px-7" noValidate>
           {globalError && (
-            <p className="form-error form-error--global">{globalError}</p>
+            <p className="rounded-md border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">
+              {globalError}
+            </p>
           )}
 
           {/* Name field — only shown on Signup */}
           {!isLogin && (
-            <div className="form-group">
-              <label htmlFor="name">Name</label>
+            <div className="flex flex-col gap-1.5">
+              <label htmlFor="name" className="text-sm font-semibold text-slate-700">Name</label>
               <input
                 id="name"
                 name="name"
@@ -143,16 +154,18 @@ function Authenticate() {
                 value={formData.name}
                 onChange={handleChange}
                 placeholder="Your full name"
-                className={errors.name ? 'input-error' : ''}
+                className={`w-full rounded-md border bg-white px-3 py-2 text-sm outline-none transition focus:border-rose-500 focus:ring-4 focus:ring-rose-100 ${
+                  errors.name ? 'border-red-700' : 'border-slate-300'
+                }`}
               />
               {errors.name && (
-                <span className="form-error">{errors.name}</span>
+                <span className="text-xs text-red-700">{errors.name}</span>
               )}
             </div>
           )}
 
-          <div className="form-group">
-            <label htmlFor="email">Email</label>
+          <div className="flex flex-col gap-1.5">
+            <label htmlFor="email" className="text-sm font-semibold text-slate-700">Email</label>
             <input
               id="email"
               name="email"
@@ -160,15 +173,17 @@ function Authenticate() {
               value={formData.email}
               onChange={handleChange}
               placeholder="you@example.com"
-              className={errors.email ? 'input-error' : ''}
+              className={`w-full rounded-md border bg-white px-3 py-2 text-sm outline-none transition focus:border-rose-500 focus:ring-4 focus:ring-rose-100 ${
+                errors.email ? 'border-red-700' : 'border-slate-300'
+              }`}
             />
             {errors.email && (
-              <span className="form-error">{errors.email}</span>
+              <span className="text-xs text-red-700">{errors.email}</span>
             )}
           </div>
 
-          <div className="form-group">
-            <label htmlFor="password">Password</label>
+          <div className="flex flex-col gap-1.5">
+            <label htmlFor="password" className="text-sm font-semibold text-slate-700">Password</label>
             <input
               id="password"
               name="password"
@@ -176,14 +191,19 @@ function Authenticate() {
               value={formData.password}
               onChange={handleChange}
               placeholder="Min. 6 characters"
-              className={errors.password ? 'input-error' : ''}
+              className={`w-full rounded-md border bg-white px-3 py-2 text-sm outline-none transition focus:border-rose-500 focus:ring-4 focus:ring-rose-100 ${
+                errors.password ? 'border-red-700' : 'border-slate-300'
+              }`}
             />
             {errors.password && (
-              <span className="form-error">{errors.password}</span>
+              <span className="text-xs text-red-700">{errors.password}</span>
             )}
           </div>
 
-          <button type="submit" className="btn btn--primary btn--full">
+          <button
+            type="submit"
+            className="mt-1 w-full rounded-md bg-rose-500 px-4 py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-90"
+          >
             {isLogin ? 'Log In' : 'Create Account'}
           </button>
         </form>

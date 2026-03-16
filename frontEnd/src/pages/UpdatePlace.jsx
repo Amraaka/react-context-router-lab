@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useParams, useNavigate, Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { usePlaces } from '../context/PlacesContext';
-import './pages.css';
 
 const isValidUrl = (url) => {
   try {
@@ -40,8 +39,8 @@ function UpdatePlace() {
   // Edge case: place id not found in LocalStorage
   if (!place) {
     return (
-      <div className="page-container">
-        <p className="empty-message">Place not found.</p>
+      <div className="mx-auto w-full max-w-5xl px-4 py-10 sm:px-6">
+        <p className="mt-10 text-center text-base italic text-slate-500">Place not found.</p>
       </div>
     );
   }
@@ -78,66 +77,83 @@ function UpdatePlace() {
   };
 
   return (
-    <div className="page-container page-container--narrow">
-      <h1 className="page-title">Edit Place</h1>
+    <div className="mx-auto w-full max-w-lg px-4 py-10 sm:px-6">
+      <h1 className="mb-6 inline-block border-b-4 border-rose-500 pb-2 text-3xl font-semibold text-[#1a1a2e]">
+        Edit Place
+      </h1>
 
-      <form onSubmit={handleSubmit} className="place-form" noValidate>
-        <div className="form-group">
-          <label htmlFor="title">Title</label>
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col gap-4 rounded-2xl bg-white px-6 py-6 shadow-xl shadow-slate-900/10 sm:px-7"
+        noValidate
+      >
+        <div className="flex flex-col gap-1.5">
+          <label htmlFor="title" className="text-sm font-semibold text-slate-700">Title</label>
           <input
             id="title" name="title" type="text"
             value={formData.title} onChange={handleChange}
-            className={errors.title ? 'input-error' : ''}
+            className={`w-full rounded-md border bg-white px-3 py-2 text-sm outline-none transition focus:border-rose-500 focus:ring-4 focus:ring-rose-100 ${
+              errors.title ? 'border-red-700' : 'border-slate-300'
+            }`}
           />
-          {errors.title && <span className="form-error">{errors.title}</span>}
+          {errors.title && <span className="text-xs text-red-700">{errors.title}</span>}
         </div>
 
-        <div className="form-group">
-          <label htmlFor="description">Description</label>
+        <div className="flex flex-col gap-1.5">
+          <label htmlFor="description" className="text-sm font-semibold text-slate-700">Description</label>
           <textarea
             id="description" name="description"
             value={formData.description} onChange={handleChange}
             rows={4}
-            className={errors.description ? 'input-error' : ''}
+            className={`w-full rounded-md border bg-white px-3 py-2 text-sm outline-none transition focus:border-rose-500 focus:ring-4 focus:ring-rose-100 ${
+              errors.description ? 'border-red-700' : 'border-slate-300'
+            }`}
           />
           {errors.description && (
-            <span className="form-error">{errors.description}</span>
+            <span className="text-xs text-red-700">{errors.description}</span>
           )}
         </div>
 
-        <div className="form-group">
-          <label htmlFor="imageUrl">Image URL</label>
+        <div className="flex flex-col gap-1.5">
+          <label htmlFor="imageUrl" className="text-sm font-semibold text-slate-700">Image URL</label>
           <input
             id="imageUrl" name="imageUrl" type="url"
             value={formData.imageUrl} onChange={handleChange}
-            className={errors.imageUrl ? 'input-error' : ''}
+            className={`w-full rounded-md border bg-white px-3 py-2 text-sm outline-none transition focus:border-rose-500 focus:ring-4 focus:ring-rose-100 ${
+              errors.imageUrl ? 'border-red-700' : 'border-slate-300'
+            }`}
           />
           {errors.imageUrl && (
-            <span className="form-error">{errors.imageUrl}</span>
+            <span className="text-xs text-red-700">{errors.imageUrl}</span>
           )}
         </div>
 
-        <div className="form-group">
-          <label htmlFor="address">Address</label>
+        <div className="flex flex-col gap-1.5">
+          <label htmlFor="address" className="text-sm font-semibold text-slate-700">Address</label>
           <input
             id="address" name="address" type="text"
             value={formData.address} onChange={handleChange}
-            className={errors.address ? 'input-error' : ''}
+            className={`w-full rounded-md border bg-white px-3 py-2 text-sm outline-none transition focus:border-rose-500 focus:ring-4 focus:ring-rose-100 ${
+              errors.address ? 'border-red-700' : 'border-slate-300'
+            }`}
           />
           {errors.address && (
-            <span className="form-error">{errors.address}</span>
+            <span className="text-xs text-red-700">{errors.address}</span>
           )}
         </div>
 
-        <div className="form-row">
+        <div className="mt-2 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
           <button
             type="button"
-            className="btn btn--secondary"
+            className="rounded-md border border-slate-600 bg-[#1a1a2e] px-4 py-2 text-sm font-medium text-slate-200 transition-opacity hover:opacity-90"
             onClick={() => navigate(-1)}
           >
             Cancel
           </button>
-          <button type="submit" className="btn btn--primary">
+          <button
+            type="submit"
+            className="rounded-md bg-rose-500 px-4 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90"
+          >
             Save Changes
           </button>
         </div>

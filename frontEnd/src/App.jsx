@@ -16,8 +16,6 @@ import Authenticate from './pages/Authenticate';
 import NewPlace     from './pages/NewPlace';
 import UpdatePlace  from './pages/UpdatePlace';
 
-import './App.css';
-
 function App() {
   return (
     // 1. AuthProvider reads/writes the 'auth' key in LocalStorage.
@@ -28,23 +26,25 @@ function App() {
     <AuthProvider>
       <PlacesProvider>
         <BrowserRouter>
-          <Navigation />
+          <div className="flex min-h-svh flex-col bg-slate-100 text-slate-800 antialiased">
+            <Navigation />
 
-          <main className="main-content">
-            <Routes>
-              {/* Public routes */}
-              <Route path="/"             element={<Users />} />
-              <Route path="/:uid/places"  element={<UserPlaces />} />
-              <Route path="/authenticate" element={<Authenticate />} />
+            <main className="flex-1">
+              <Routes>
+                {/* Public routes */}
+                <Route path="/"             element={<Users />} />
+                <Route path="/:uid/places"  element={<UserPlaces />} />
+                <Route path="/authenticate" element={<Authenticate />} />
 
-              {/* Protected routes — redirect handled inside each component */}
-              <Route path="/places/new"   element={<NewPlace />} />
-              <Route path="/places/:pid"  element={<UpdatePlace />} />
+                {/* Protected routes — redirect handled inside each component */}
+                <Route path="/places/new"   element={<NewPlace />} />
+                <Route path="/places/:pid"  element={<UpdatePlace />} />
 
-              {/* Fallback: unknown URLs redirect to home */}
-              <Route path="*" element={<Navigate to="/" replace />} />
-            </Routes>
-          </main>
+                {/* Fallback: unknown URLs redirect to home */}
+                <Route path="*" element={<Navigate to="/" replace />} />
+              </Routes>
+            </main>
+          </div>
         </BrowserRouter>
       </PlacesProvider>
     </AuthProvider>

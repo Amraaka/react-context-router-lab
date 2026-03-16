@@ -1,6 +1,0 @@
-/* App.css — top-level layout only */
-
-.main-content {
-  flex: 1;             /* fill remaining height so the page never feels short */
-  background: #f5f5f7; /* light grey page background */
-}
