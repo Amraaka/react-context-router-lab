@@ -1,4 +1,5 @@
 import { createContext, useState, useContext } from 'react';
+import samplePlaces from '../../db/places.json';
 
 // ─── PlacesContext ───────────────────────────────────────────────────────────
 // Holds the global list of places and exposes full CRUD operations.
@@ -19,12 +20,41 @@ export function usePlaces() {
   return useContext(PlacesContext);
 }
 
+const ensurePlacesSeeded = () => {
+  const storedPlaces = localStorage.getItem('places');
+
+  if (!storedPlaces) {
+    localStorage.setItem('places', JSON.stringify(samplePlaces));
+    return samplePlaces;
+  }
+
+  try {
+    const parsed = JSON.parse(storedPlaces);
+    if (!Array.isArray(parsed)) {
+      throw new Error('Invalid places payload');
+    }
+
+    const existingIds = new Set(parsed.map((place) => place.id));
+    const missingSeedPlaces = samplePlaces.filter(
+      (place) => !existingIds.has(place.id)
+    );
+
+    if (missingSeedPlaces.length > 0) {
+      const merged = [...parsed, ...missingSeedPlaces];
+      localStorage.setItem('places', JSON.stringify(merged));
+      return merged;
+    }
+
+    return parsed;
+  } catch {
+    localStorage.setItem('places', JSON.stringify(samplePlaces));
+    return samplePlaces;
+  }
+};
+
 export function PlacesProvider({ children }) {
-  // Read the persisted places array from LocalStorage on first render.
-  const [places, setPlaces] = useState(() => {
-    const stored = localStorage.getItem('places');
-    return stored ? JSON.parse(stored) : [];
-  });
+  // Read persisted places and ensure sample places exist for first run.
+  const [places, setPlaces] = useState(() => ensurePlacesSeeded());
 
   // Internal helper: update state and keep LocalStorage in sync
   const savePlaces = (updatedPlaces) => {

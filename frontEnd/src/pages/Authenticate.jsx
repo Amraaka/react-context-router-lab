@@ -1,9 +1,47 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import sampleUsers from '../../db/users.json';
 
 // Simple regex-based email validator
 const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+const ensureUsersSeeded = () => {
+  const storedUsers = localStorage.getItem('users');
+
+  if (!storedUsers) {
+    localStorage.setItem('users', JSON.stringify(sampleUsers));
+    return;
+  }
+
+  try {
+    const parsed = JSON.parse(storedUsers);
+    if (!Array.isArray(parsed)) {
+      throw new Error('Invalid users payload');
+    }
+
+    const existingIds = new Set(parsed.map((user) => user.id));
+    const existingEmails = new Set(parsed.map((user) => user.email));
+    const missingSeedUsers = sampleUsers.filter(
+      (user) => !existingIds.has(user.id) && !existingEmails.has(user.email)
+    );
+
+    if (missingSeedUsers.length > 0) {
+      localStorage.setItem('users', JSON.stringify([...parsed, ...missingSeedUsers]));
+    }
+  } catch {
+    localStorage.setItem('users', JSON.stringify(sampleUsers));
+  }
+};
+
+const readUsers = () => {
+  try {
+    const parsed = JSON.parse(localStorage.getItem('users') || '[]');
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+};
 
 // ─── Authenticate Page  (route: /authenticate) ───────────────────────────
 // Dual Login / Signup form with tab switching.
@@ -28,6 +66,11 @@ function Authenticate() {
   const [formData, setFormData] = useState({ name: '', email: '', password: '' });
   const [errors, setErrors] = useState({});
   const [globalError, setGlobalError] = useState('');
+
+  // Ensure there is at least one sample account for first-time login.
+  useEffect(() => {
+    ensureUsersSeeded();
+  }, []);
 
   // Redirect already-authenticated users away from this page
   if (isLoggedIn) return <Navigate to="/" replace />;
@@ -71,8 +114,7 @@ function Authenticate() {
       return;
     }
 
-    // Read the users array from LocalStorage (defaults to empty array)
-    const users = JSON.parse(localStorage.getItem('users') || '[]');
+    const users = readUsers();
 
     if (isLogin) {
       // ── LOGIN ──────────────────────────────────────────────────────────
@@ -109,6 +151,9 @@ function Authenticate() {
   const inputClass =
     'w-full rounded border border-slate-300 bg-white px-3 py-2 text-sm outline-none focus:border-slate-500';
   const inputErrorClass = 'border-red-500';
+  const sampleHint = sampleUsers
+    .map((user) => `${user.email} / ${user.password}`)
+    .join(' | ');
 
   return (
     <div className="mx-auto w-full max-w-md px-4 py-8">
@@ -116,6 +161,9 @@ function Authenticate() {
         <h1 className="mb-4 text-center text-xl font-semibold text-slate-800">
           {isLogin ? 'Login' : 'Sign Up'}
         </h1>
+        <p className="mb-4 text-center text-xs text-slate-500">
+          Sample logins: {sampleHint}
+        </p>
 
         {/* Simple mode switcher */}
         <div className="mb-4 grid grid-cols-2 gap-2">
