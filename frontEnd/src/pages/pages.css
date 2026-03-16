@@ -1,0 +1,289 @@
+/* ──────────────────────────────────────────────────────────────────────────
+   pages.css — shared styles used by every page component
+   ────────────────────────────────────────────────────────────────────────── */
+
+/* ── Layout ─────────────────────────────────────────────────────────────── */
+.page-container {
+  max-width: 900px;
+  margin: 2.5rem auto;
+  padding: 0 1.5rem;
+}
+
+/* Narrower centred container for forms (auth, new-place, update-place) */
+.page-container--narrow {
+  max-width: 480px;
+}
+
+.page-title {
+  font-size: 1.75rem;
+  margin: 0 0 1.5rem;
+  color: #1a1a2e;
+  display: inline-block;
+  padding-bottom: 0.4rem;
+  border-bottom: 3px solid #e94560;
+}
+
+.empty-message {
+  color: #999;
+  font-style: italic;
+  text-align: center;
+  margin-top: 2.5rem;
+  font-size: 1rem;
+}
+
+/* ── Reusable Buttons ───────────────────────────────────────────────────── */
+.btn {
+  display: inline-block;
+  padding: 0.5rem 1.2rem;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+  transition: opacity 0.2s, transform 0.1s;
+}
+
+.btn:hover  { opacity: 0.85; }
+.btn:active { transform: scale(0.97); }
+
+.btn--primary   { background: #e94560; color: #fff; }
+.btn--secondary { background: #1a1a2e; color: #ccc; }
+.btn--danger    { background: #c0392b; color: #fff; }
+
+/* Full-width button inside a form */
+.btn--full {
+  width: 100%;
+  text-align: center;
+  padding: 0.7rem;
+  font-size: 1rem;
+  margin-top: 0.25rem;
+}
+
+/* ── User List (/ route) ────────────────────────────────────────────────── */
+.user-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.user-card {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 1rem 1.5rem;
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.2s;
+}
+
+.user-card:hover {
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+}
+
+/* Circular avatar showing first letter of the user's name */
+.user-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #1a1a2e;
+  color: #e94560;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.user-info { flex: 1; }
+
+.user-info h3 {
+  margin: 0 0 0.2rem;
+  font-size: 1rem;
+  color: #1a1a2e;
+}
+
+.user-info p {
+  margin: 0;
+  color: #999;
+  font-size: 0.85rem;
+}
+
+/* ── Place Cards (/:uid/places route) ──────────────────────────────────── */
+.place-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 1.5rem;
+}
+
+.place-card {
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #e8e8e8;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.2s;
+}
+
+.place-card:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+
+.place-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.place-body {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.place-title {
+  margin: 0 0 0.3rem;
+  font-size: 1.05rem;
+  color: #1a1a2e;
+}
+
+.place-address {
+  color: #e94560;
+  font-size: 0.82rem;
+  margin: 0 0 0.6rem;
+}
+
+.place-description {
+  color: #666;
+  font-size: 0.88rem;
+  margin: 0 0 1rem;
+  flex: 1;
+  line-height: 1.5;
+}
+
+.place-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: auto;
+}
+
+/* ── Auth Card (/authenticate route) ───────────────────────────────────── */
+.auth-card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+/* Tab strip at the top of the auth card */
+.auth-tabs {
+  display: flex;
+  border-bottom: 1px solid #efefef;
+}
+
+.auth-tab {
+  flex: 1;
+  padding: 0.9rem;
+  border: none;
+  background: #f9f9f9;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-family: inherit;
+  color: #999;
+  transition: background 0.2s, color 0.2s;
+}
+
+.auth-tab--active {
+  background: #fff;
+  color: #e94560;
+  font-weight: 600;
+  border-bottom: 2px solid #e94560;
+}
+
+.auth-form {
+  padding: 1.5rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* ── Form fields (shared across auth + place forms) ─────────────────────── */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.form-group label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #444;
+}
+
+.form-group input,
+.form-group textarea {
+  padding: 0.6rem 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+  background: #fff;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #e94560;
+  box-shadow: 0 0 0 3px rgba(233, 69, 96, 0.12);
+}
+
+/* Red border when validation fails */
+.input-error {
+  border-color: #c0392b !important;
+}
+
+/* Inline error message below a field */
+.form-error {
+  color: #c0392b;
+  font-size: 0.8rem;
+}
+
+/* Banner-style error for global messages (wrong password, etc.) */
+.form-error--global {
+  background: #fdecea;
+  padding: 0.6rem 0.8rem;
+  border-radius: 4px;
+  border: 1px solid #f5c6cb;
+}
+
+/* ── Place Form (/places/new and /places/:pid routes) ───────────────────── */
+.place-form {
+  background: #fff;
+  border-radius: 10px;
+  padding: 1.5rem 1.75rem;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+/* Row of Cancel / Submit buttons at the bottom of a form */
+.form-row {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+  margin-top: 0.5rem;
+}

@@ -1,0 +1,77 @@
+.nav-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  height: 64px;
+  background: #1a1a2e;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-logo {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #e94560;
+  text-decoration: none;
+  letter-spacing: 1px;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav-link {
+  color: #ccc;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.2s;
+}
+
+.nav-link:hover {
+  color: #e94560;
+}
+
+.nav-username {
+  color: #a0a0b0;
+  font-size: 0.88rem;
+  font-style: italic;
+  padding: 0 0.25rem;
+}
+
+/* Shared base for both nav button variants */
+.nav-btn {
+  padding: 0.4rem 1rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  text-decoration: none;
+  border: none;
+  font-family: inherit;
+  transition: opacity 0.2s;
+}
+
+.nav-btn:hover {
+  opacity: 0.85;
+}
+
+.nav-btn--login {
+  background: #e94560;
+  color: #fff;
+}
+
+.nav-btn--logout {
+  background: #333;
+  color: #ccc;
+}
+
+/* Responsive: hide username on small screens */
+@media (max-width: 480px) {
+  .nav-header { padding: 0 1rem; }
+  .nav-username { display: none; }
+  .nav-links { gap: 0.6rem; }
+}
