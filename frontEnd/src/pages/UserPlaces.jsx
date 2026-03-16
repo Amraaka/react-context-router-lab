@@ -18,33 +18,33 @@ function UserPlaces() {
   const isOwner = isLoggedIn && userId === uid;
 
   return (
-    <div className="mx-auto w-full max-w-5xl px-4 py-10 sm:px-6">
-      <h1 className="mb-6 inline-block border-b-4 border-rose-500 pb-2 text-3xl font-semibold text-[#1a1a2e]">
+    <div className="mx-auto w-full max-w-4xl px-4 py-8">
+      <h1 className="mb-4 text-xl font-semibold text-slate-800">
         {ownerName}'s Places
       </h1>
 
       {userPlaces.length === 0 ? (
-        <p className="mt-10 text-center text-base italic text-slate-500">
+        <p className="mt-8 text-sm text-slate-600">
           No places found for this user.
           {isOwner && (
             <>
-              {' '}<Link to="/places/new" className="font-medium text-rose-500 no-underline">
+              {' '}<Link to="/places/new" className="underline">
                 Add your first place!
               </Link>
             </>
           )}
         </p>
       ) : (
-        <ul className="m-0 grid list-none grid-cols-1 gap-6 p-0 sm:grid-cols-2">
+        <ul className="m-0 grid list-none grid-cols-1 gap-4 p-0 md:grid-cols-2">
           {userPlaces.map((place) => (
             <li
               key={place.id}
-              className="flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-white shadow-md transition-shadow hover:shadow-lg"
+              className="flex flex-col overflow-hidden rounded border border-slate-200 bg-white"
             >
               <img
                 src={place.imageUrl}
                 alt={place.title}
-                className="h-44 w-full object-cover"
+                className="h-40 w-full object-cover"
                 // Fallback if the URL is broken
                 onError={(e) => {
                   e.target.src =
@@ -53,26 +53,26 @@ function UserPlaces() {
               />
 
               <div className="flex flex-1 flex-col p-4">
-                <h3 className="mb-1 text-lg font-semibold text-[#1a1a2e]">{place.title}</h3>
-                <p className="mb-2 text-xs font-medium uppercase tracking-wide text-rose-500">
+                <h3 className="text-base font-medium text-slate-800">{place.title}</h3>
+                <p className="mt-1 text-sm text-slate-500">
                   {place.address}
                 </p>
-                <p className="mb-4 flex-1 text-sm leading-6 text-slate-600">
+                <p className="mt-2 flex-1 text-sm text-slate-600">
                   {place.description}
                 </p>
 
                 {/* Edit / Delete are only rendered for the owner */}
                 {isOwner && (
-                  <div className="mt-auto flex gap-2">
+                  <div className="mt-3 flex gap-2">
                     <Link
                       to={`/places/${place.id}`}
-                      className="inline-flex items-center rounded-md bg-[#1a1a2e] px-4 py-2 text-sm font-medium text-slate-200 no-underline transition-opacity hover:opacity-90"
+                      className="rounded border border-slate-300 bg-white px-3 py-1.5 text-sm text-slate-700 no-underline hover:bg-slate-50"
                     >
                       Edit
                     </Link>
                     <button
                       onClick={() => deletePlace(place.id)}
-                      className="inline-flex items-center rounded-md bg-red-700 px-4 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90"
+                      className="rounded border border-red-300 bg-white px-3 py-1.5 text-sm text-red-600 hover:bg-red-50"
                     >
                       Delete
                     </button>

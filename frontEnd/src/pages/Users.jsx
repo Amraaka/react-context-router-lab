@@ -25,33 +25,33 @@ function Users() {
   const users = Object.values(usersMap);
 
   return (
-    <div className="mx-auto w-full max-w-5xl px-4 py-10 sm:px-6">
-      <h1 className="mb-6 inline-block border-b-4 border-rose-500 pb-2 text-3xl font-semibold text-[#1a1a2e]">
+    <div className="mx-auto w-full max-w-4xl px-4 py-8">
+      <h1 className="mb-4 text-xl font-semibold text-slate-800">
         All Users
       </h1>
 
       {users.length === 0 ? (
-        <p className="mt-10 text-center text-base italic text-slate-500">
+        <p className="mt-8 text-sm text-slate-600">
           No users have shared places yet.{' '}
-          <Link to="/authenticate" className="font-medium text-rose-500 no-underline">
+          <Link to="/authenticate" className="underline">
             Sign up
           </Link>{' '}
           and be the first!
         </p>
       ) : (
-        <ul className="m-0 flex list-none flex-col gap-4 p-0">
+        <ul className="m-0 flex list-none flex-col gap-3 p-0">
           {users.map((user) => (
             <li
               key={user.userId}
-              className="flex items-center gap-4 rounded-xl border border-slate-200 bg-white px-4 py-4 shadow-sm transition-shadow hover:shadow-md sm:px-6"
+              className="flex items-center gap-3 rounded border border-slate-200 bg-white p-4"
             >
               {/* First letter of the name as an avatar */}
-              <div className="flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-full bg-[#1a1a2e] text-2xl font-bold text-rose-500">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-slate-300 bg-slate-100 text-sm font-semibold text-slate-700">
                 {user.userName.charAt(0).toUpperCase()}
               </div>
 
               <div className="flex-1">
-                <h3 className="mb-1 text-base font-semibold text-[#1a1a2e]">
+                <h3 className="text-base font-medium text-slate-800">
                   {user.userName}
                 </h3>
                 <p className="text-sm text-slate-500">
@@ -61,7 +61,7 @@ function Users() {
 
               <Link
                 to={`/${user.userId}/places`}
-                className="inline-flex items-center rounded-md bg-rose-500 px-4 py-2 text-sm font-medium text-white no-underline transition-opacity hover:opacity-90"
+                className="rounded bg-slate-800 px-3 py-1.5 text-sm text-white no-underline hover:bg-slate-700"
               >
                 View Places
               </Link>

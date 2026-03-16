@@ -13,37 +13,37 @@ function Navigation() {
   };
 
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-800 bg-[#1a1a2e] shadow-lg shadow-black/30">
-      <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-4 sm:px-6">
+    <header className="border-b border-slate-200 bg-white">
+      <div className="mx-auto flex w-full max-w-4xl items-center justify-between px-4 py-3">
         <Link
           to="/"
-          className="text-[1.35rem] font-bold tracking-[0.08em] text-rose-500 no-underline"
+          className="text-lg font-semibold text-slate-800 no-underline"
         >
           PlaceShare
         </Link>
 
-        <nav className="flex items-center gap-2 sm:gap-4">
+        <nav className="flex items-center gap-3">
           {isLoggedIn ? (
             // ── Logged-in links ──────────────────────────────────────────
             <>
               <Link
                 to={`/${userId}/places`}
-                className="text-sm text-slate-300 no-underline transition-colors hover:text-rose-500"
+                className="text-sm text-slate-700 no-underline hover:underline"
               >
                 My Places
               </Link>
               <Link
                 to="/places/new"
-                className="text-sm text-slate-300 no-underline transition-colors hover:text-rose-500"
+                className="text-sm text-slate-700 no-underline hover:underline"
               >
                 Add Place
               </Link>
-              <span className="hidden text-sm italic text-slate-400 sm:inline">
+              <span className="hidden text-sm text-slate-500 sm:inline">
                 {userName}
               </span>
               <button
                 onClick={handleLogout}
-                className="rounded-md border border-slate-600 bg-slate-800 px-4 py-1.5 text-sm text-slate-200 transition-opacity hover:opacity-90"
+                className="rounded border border-slate-300 bg-white px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-50"
               >
                 Logout
               </button>
@@ -53,13 +53,13 @@ function Navigation() {
             <>
               <Link
                 to="/"
-                className="text-sm text-slate-300 no-underline transition-colors hover:text-rose-500"
+                className="text-sm text-slate-700 no-underline hover:underline"
               >
                 All Users
               </Link>
               <Link
                 to="/authenticate"
-                className="rounded-md bg-rose-500 px-4 py-1.5 text-sm text-white no-underline transition-opacity hover:opacity-90"
+                className="rounded bg-slate-800 px-3 py-1.5 text-sm text-white no-underline hover:bg-slate-700"
               >
                 Login / Signup
               </Link>
