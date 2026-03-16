@@ -30,13 +30,13 @@ function Navigation() {
                 to={`/${userId}/places`}
                 className="text-sm text-slate-700 no-underline hover:underline"
               >
-                My Places
+                Миний газрууд
               </Link>
               <Link
                 to="/places/new"
                 className="text-sm text-slate-700 no-underline hover:underline"
               >
-                Add Place
+                Газар нэмэх
               </Link>
               <span className="hidden text-sm text-slate-500 sm:inline">
                 {userName}
@@ -45,7 +45,7 @@ function Navigation() {
                 onClick={handleLogout}
                 className="rounded border border-slate-300 bg-white px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-50"
               >
-                Logout
+                Гарах
               </button>
             </>
           ) : (
@@ -55,13 +55,13 @@ function Navigation() {
                 to="/"
                 className="text-sm text-slate-700 no-underline hover:underline"
               >
-                All Users
+                Бүх хэрэглэгч
               </Link>
               <Link
                 to="/authenticate"
                 className="rounded bg-slate-800 px-3 py-1.5 text-sm text-white no-underline hover:bg-slate-700"
               >
-                Login / Signup
+                Нэвтрэх / Бүртгүүлэх
               </Link>
             </>
           )}

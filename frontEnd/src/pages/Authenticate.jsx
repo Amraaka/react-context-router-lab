@@ -94,13 +94,13 @@ function Authenticate() {
   const validate = () => {
     const errs = {};
     if (!isLogin && !formData.name.trim()) {
-      errs.name = 'Name is required.';
+      errs.name = 'Нэр оруулах шаардлагатай.';
     }
     if (!isValidEmail(formData.email)) {
-      errs.email = 'Please enter a valid email address.';
+      errs.email = 'Зөв имэйл хаяг оруулна уу.';
     }
     if (formData.password.length < 6) {
-      errs.password = 'Password must be at least 6 characters.';
+      errs.password = 'Нууц үг хамгийн багадаа 6 тэмдэгт байх ёстой.';
     }
     return errs;
   };
@@ -122,7 +122,7 @@ function Authenticate() {
         (u) => u.email === formData.email && u.password === formData.password
       );
       if (!existingUser) {
-        setGlobalError('Invalid email or password. Please try again.');
+        setGlobalError('Имэйл эсвэл нууц үг буруу байна. Дахин оролдоно уу.');
         return;
       }
       login(existingUser.id, existingUser.name);
@@ -130,7 +130,7 @@ function Authenticate() {
       // ── SIGNUP ─────────────────────────────────────────────────────────
       if (users.find((u) => u.email === formData.email)) {
         setGlobalError(
-          'An account with this email already exists. Please log in instead.'
+          'Энэ имэйлээр бүртгэл аль хэдийн байна. Нэвтэрнэ үү.'
         );
         return;
       }
@@ -159,10 +159,10 @@ function Authenticate() {
     <div className="mx-auto w-full max-w-md px-4 py-8">
       <div className="rounded-lg border border-slate-200 bg-white p-5">
         <h1 className="mb-4 text-center text-xl font-semibold text-slate-800">
-          {isLogin ? 'Login' : 'Sign Up'}
+          {isLogin ? 'Нэвтрэх' : 'Бүртгүүлэх'}
         </h1>
         <p className="mb-4 text-center text-xs text-slate-500">
-          Sample logins: {sampleHint}
+          Жишээ нэвтрэх мэдээлэл: {sampleHint}
         </p>
 
         {/* Simple mode switcher */}
@@ -176,7 +176,7 @@ function Authenticate() {
             }`}
             onClick={() => switchMode(true)}
           >
-            Login
+            Нэвтрэх
           </button>
           <button
             type="button"
@@ -187,7 +187,7 @@ function Authenticate() {
             }`}
             onClick={() => switchMode(false)}
           >
-            Sign Up
+            Бүртгүүлэх
           </button>
         </div>
 
@@ -201,14 +201,14 @@ function Authenticate() {
           {/* Name field — only shown on Signup */}
           {!isLogin && (
             <div className="flex flex-col gap-1">
-              <label htmlFor="name" className="text-sm text-slate-700">Name</label>
+              <label htmlFor="name" className="text-sm text-slate-700">Нэр</label>
               <input
                 id="name"
                 name="name"
                 type="text"
                 value={formData.name}
                 onChange={handleChange}
-                placeholder="Your full name"
+                placeholder="Бүтэн нэрээ оруулна уу"
                 className={`${inputClass} ${
                   errors.name ? inputErrorClass : ''
                 }`}
@@ -220,14 +220,14 @@ function Authenticate() {
           )}
 
           <div className="flex flex-col gap-1">
-            <label htmlFor="email" className="text-sm text-slate-700">Email</label>
+            <label htmlFor="email" className="text-sm text-slate-700">Имэйл</label>
             <input
               id="email"
               name="email"
               type="email"
               value={formData.email}
               onChange={handleChange}
-              placeholder="you@example.com"
+              placeholder="ner@example.com"
               className={`${inputClass} ${
                 errors.email ? inputErrorClass : ''
               }`}
@@ -238,14 +238,14 @@ function Authenticate() {
           </div>
 
           <div className="flex flex-col gap-1">
-            <label htmlFor="password" className="text-sm text-slate-700">Password</label>
+            <label htmlFor="password" className="text-sm text-slate-700">Нууц үг</label>
             <input
               id="password"
               name="password"
               type="password"
               value={formData.password}
               onChange={handleChange}
-              placeholder="Min. 6 characters"
+              placeholder="Хамгийн багадаа 6 тэмдэгт"
               className={`${inputClass} ${
                 errors.password ? inputErrorClass : ''
               }`}
@@ -259,7 +259,7 @@ function Authenticate() {
             type="submit"
             className="mt-2 w-full rounded bg-slate-800 px-4 py-2 text-sm font-medium text-white hover:bg-slate-700"
           >
-            {isLogin ? 'Log In' : 'Create Account'}
+            {isLogin ? 'Нэвтрэх' : 'Бүртгэл үүсгэх'}
           </button>
         </form>
       </div>

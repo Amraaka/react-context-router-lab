@@ -1,19 +1,19 @@
 [
   {
     "id": "place_alice_1",
-    "title": "City Library Courtyard",
-    "description": "A calm public courtyard with trees, benches, and open reading spaces.",
+    "title": "Хотын номын сангийн талбай",
+    "description": "Мод, сандалтай, тайван уншихад тохиромжтой нээлттэй талбай.",
     "imageUrl": "https://placehold.co/600x400/e2e8f0/334155?text=Alice+Place",
-    "address": "Peace Avenue, Ulaanbaatar",
+    "address": "Энхтайвны өргөн чөлөө, Улаанбаатар",
     "creator": "user_alice_1",
     "creatorName": "Alice Johnson"
   },
   {
     "id": "place_bat_1",
-    "title": "Riverside Walk",
-    "description": "A scenic walking route near the river with good sunset views.",
+    "title": "Голын эргийн алхалтын зам",
+    "description": "Нар жаргах үеийн үзэмж сайтай, гол дагуух тайван алхалтын маршрут.",
     "imageUrl": "https://placehold.co/600x400/e2e8f0/334155?text=Bat+Place",
-    "address": "River District, Ulaanbaatar",
+    "address": "Голын бүс, Улаанбаатар",
     "creator": "user_bat_1",
     "creatorName": "Bat-Erdene"
   }

@@ -27,16 +27,16 @@ function Users() {
   return (
     <div className="mx-auto w-full max-w-4xl px-4 py-8">
       <h1 className="mb-4 text-xl font-semibold text-slate-800">
-        All Users
+        Бүх хэрэглэгч
       </h1>
 
       {users.length === 0 ? (
         <p className="mt-8 text-sm text-slate-600">
-          No users have shared places yet.{' '}
+          Одоогоор хэн ч газар нийтлээгүй байна.{' '}
           <Link to="/authenticate" className="underline">
-            Sign up
+            Бүртгүүлэх
           </Link>{' '}
-          and be the first!
+          хийгээд анхны нь болоорой!
         </p>
       ) : (
         <ul className="m-0 flex list-none flex-col gap-3 p-0">
@@ -55,7 +55,7 @@ function Users() {
                   {user.userName}
                 </h3>
                 <p className="text-sm text-slate-500">
-                  {user.placeCount} place{user.placeCount !== 1 ? 's' : ''}
+                  {user.placeCount} газар
                 </p>
               </div>
 
@@ -63,7 +63,7 @@ function Users() {
                 to={`/${user.userId}/places`}
                 className="rounded bg-slate-800 px-3 py-1.5 text-sm text-white no-underline hover:bg-slate-700"
               >
-                View Places
+                Газруудыг харах
               </Link>
             </li>
           ))}

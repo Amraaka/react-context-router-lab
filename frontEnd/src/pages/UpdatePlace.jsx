@@ -40,7 +40,7 @@ function UpdatePlace() {
   if (!place) {
     return (
       <div className="mx-auto w-full max-w-5xl px-4 py-10 sm:px-6">
-        <p className="mt-10 text-center text-base italic text-slate-500">Place not found.</p>
+        <p className="mt-10 text-center text-base italic text-slate-500">Газар олдсонгүй.</p>
       </div>
     );
   }
@@ -52,14 +52,14 @@ function UpdatePlace() {
 
   const validate = () => {
     const errs = {};
-    if (!formData.title.trim())       errs.title = 'Title is required.';
-    if (!formData.description.trim()) errs.description = 'Description is required.';
+    if (!formData.title.trim())       errs.title = 'Гарчиг оруулах шаардлагатай.';
+    if (!formData.description.trim()) errs.description = 'Тайлбар оруулах шаардлагатай.';
     if (!formData.imageUrl.trim()) {
-      errs.imageUrl = 'Image URL is required.';
+      errs.imageUrl = 'Зургийн холбоос оруулах шаардлагатай.';
     } else if (!isValidUrl(formData.imageUrl)) {
-      errs.imageUrl = 'Please enter a valid URL (e.g. https://example.com/photo.jpg).';
+      errs.imageUrl = 'Зөв холбоос оруулна уу (жишээ: https://example.com/photo.jpg).';
     }
-    if (!formData.address.trim())     errs.address = 'Address is required.';
+    if (!formData.address.trim())     errs.address = 'Хаяг оруулах шаардлагатай.';
     return errs;
   };
 
@@ -83,7 +83,7 @@ function UpdatePlace() {
   return (
     <div className="mx-auto w-full max-w-md px-4 py-8">
       <h1 className="mb-4 text-xl font-semibold text-slate-800">
-        Edit Place
+        Газрын мэдээлэл засах
       </h1>
 
       <form
@@ -92,7 +92,7 @@ function UpdatePlace() {
         noValidate
       >
         <div className="flex flex-col gap-1">
-          <label htmlFor="title" className="text-sm text-slate-700">Title</label>
+          <label htmlFor="title" className="text-sm text-slate-700">Гарчиг</label>
           <input
             id="title" name="title" type="text"
             value={formData.title} onChange={handleChange}
@@ -104,7 +104,7 @@ function UpdatePlace() {
         </div>
 
         <div className="flex flex-col gap-1">
-          <label htmlFor="description" className="text-sm text-slate-700">Description</label>
+          <label htmlFor="description" className="text-sm text-slate-700">Тайлбар</label>
           <textarea
             id="description" name="description"
             value={formData.description} onChange={handleChange}
@@ -119,7 +119,7 @@ function UpdatePlace() {
         </div>
 
         <div className="flex flex-col gap-1">
-          <label htmlFor="imageUrl" className="text-sm text-slate-700">Image URL</label>
+          <label htmlFor="imageUrl" className="text-sm text-slate-700">Зургийн холбоос</label>
           <input
             id="imageUrl" name="imageUrl" type="url"
             value={formData.imageUrl} onChange={handleChange}
@@ -133,7 +133,7 @@ function UpdatePlace() {
         </div>
 
         <div className="flex flex-col gap-1">
-          <label htmlFor="address" className="text-sm text-slate-700">Address</label>
+          <label htmlFor="address" className="text-sm text-slate-700">Хаяг</label>
           <input
             id="address" name="address" type="text"
             value={formData.address} onChange={handleChange}
@@ -152,13 +152,13 @@ function UpdatePlace() {
             className="rounded border border-slate-300 bg-white px-3 py-2 text-sm text-slate-700 hover:bg-slate-50"
             onClick={() => navigate(-1)}
           >
-            Cancel
+            Болих
           </button>
           <button
             type="submit"
             className="rounded bg-slate-800 px-3 py-2 text-sm text-white hover:bg-slate-700"
           >
-            Save Changes
+            Хадгалах
           </button>
         </div>
       </form>

@@ -12,7 +12,7 @@ function UserPlaces() {
 
   // Filter the global places list to only this user's entries
   const userPlaces = places.filter((p) => p.creator === uid);
-  const ownerName = userPlaces[0]?.creatorName || 'User';
+  const ownerName = userPlaces[0]?.creatorName || 'Хэрэглэгч';
 
   // Only the owner can modify their places
   const isOwner = isLoggedIn && userId === uid;
@@ -20,16 +20,16 @@ function UserPlaces() {
   return (
     <div className="mx-auto w-full max-w-4xl px-4 py-8">
       <h1 className="mb-4 text-xl font-semibold text-slate-800">
-        {ownerName}'s Places
+        {ownerName} хэрэглэгчийн газрууд
       </h1>
 
       {userPlaces.length === 0 ? (
         <p className="mt-8 text-sm text-slate-600">
-          No places found for this user.
+          Энэ хэрэглэгчийн газар олдсонгүй.
           {isOwner && (
             <>
               {' '}<Link to="/places/new" className="underline">
-                Add your first place!
+                Анхны газраа нэмээрэй!
               </Link>
             </>
           )}
@@ -48,7 +48,7 @@ function UserPlaces() {
                 // Fallback if the URL is broken
                 onError={(e) => {
                   e.target.src =
-                    'https://placehold.co/400x180/1a1a2e/e94560?text=No+Image';
+                    'https://placehold.co/400x180/1a1a2e/e94560?text=Zurag+alga';
                 }}
               />
 
@@ -68,13 +68,13 @@ function UserPlaces() {
                       to={`/places/${place.id}`}
                       className="rounded border border-slate-300 bg-white px-3 py-1.5 text-sm text-slate-700 no-underline hover:bg-slate-50"
                     >
-                      Edit
+                      Засах
                     </Link>
                     <button
                       onClick={() => deletePlace(place.id)}
                       className="rounded border border-red-300 bg-white px-3 py-1.5 text-sm text-red-600 hover:bg-red-50"
                     >
-                      Delete
+                      Устгах
                     </button>
                   </div>
                 )}

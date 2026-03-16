@@ -42,14 +42,14 @@ function NewPlace() {
 
   const validate = () => {
     const errs = {};
-    if (!formData.title.trim())       errs.title = 'Title is required.';
-    if (!formData.description.trim()) errs.description = 'Description is required.';
+    if (!formData.title.trim())       errs.title = 'Гарчиг оруулах шаардлагатай.';
+    if (!formData.description.trim()) errs.description = 'Тайлбар оруулах шаардлагатай.';
     if (!formData.imageUrl.trim()) {
-      errs.imageUrl = 'Image URL is required.';
+      errs.imageUrl = 'Зургийн холбоос оруулах шаардлагатай.';
     } else if (!isValidUrl(formData.imageUrl)) {
-      errs.imageUrl = 'Please enter a valid URL (e.g. https://example.com/photo.jpg).';
+      errs.imageUrl = 'Зөв холбоос оруулна уу (жишээ: https://example.com/photo.jpg).';
     }
-    if (!formData.address.trim())     errs.address = 'Address is required.';
+    if (!formData.address.trim())     errs.address = 'Хаяг оруулах шаардлагатай.';
     return errs;
   };
 
@@ -75,7 +75,7 @@ function NewPlace() {
   return (
     <div className="mx-auto w-full max-w-md px-4 py-8">
       <h1 className="mb-4 text-xl font-semibold text-slate-800">
-        Add New Place
+        Шинэ газар нэмэх
       </h1>
 
       <form
@@ -84,11 +84,11 @@ function NewPlace() {
         noValidate
       >
         <div className="flex flex-col gap-1">
-          <label htmlFor="title" className="text-sm text-slate-700">Title</label>
+          <label htmlFor="title" className="text-sm text-slate-700">Гарчиг</label>
           <input
             id="title" name="title" type="text"
             value={formData.title} onChange={handleChange}
-            placeholder="e.g. Central Park"
+            placeholder="Жишээ: Үндэсний цэцэрлэгт хүрээлэн"
             className={`${inputClass} ${
               errors.title ? inputErrorClass : ''
             }`}
@@ -97,11 +97,11 @@ function NewPlace() {
         </div>
 
         <div className="flex flex-col gap-1">
-          <label htmlFor="description" className="text-sm text-slate-700">Description</label>
+          <label htmlFor="description" className="text-sm text-slate-700">Тайлбар</label>
           <textarea
             id="description" name="description"
             value={formData.description} onChange={handleChange}
-            placeholder="What makes this place special?"
+            placeholder="Энэ газрын онцлог юу вэ?"
             rows={4}
             className={`${inputClass} ${
               errors.description ? inputErrorClass : ''
@@ -113,7 +113,7 @@ function NewPlace() {
         </div>
 
         <div className="flex flex-col gap-1">
-          <label htmlFor="imageUrl" className="text-sm text-slate-700">Image URL</label>
+          <label htmlFor="imageUrl" className="text-sm text-slate-700">Зургийн холбоос</label>
           <input
             id="imageUrl" name="imageUrl" type="url"
             value={formData.imageUrl} onChange={handleChange}
@@ -128,11 +128,11 @@ function NewPlace() {
         </div>
 
         <div className="flex flex-col gap-1">
-          <label htmlFor="address" className="text-sm text-slate-700">Address</label>
+          <label htmlFor="address" className="text-sm text-slate-700">Хаяг</label>
           <input
             id="address" name="address" type="text"
             value={formData.address} onChange={handleChange}
-            placeholder="123 Main St, New York, NY"
+            placeholder="Жишээ: СБД, 1-р хороо"
             className={`${inputClass} ${
               errors.address ? inputErrorClass : ''
             }`}
@@ -148,13 +148,13 @@ function NewPlace() {
             className="rounded border border-slate-300 bg-white px-3 py-2 text-sm text-slate-700 hover:bg-slate-50"
             onClick={() => navigate(-1)}
           >
-            Cancel
+            Болих
           </button>
           <button
             type="submit"
             className="rounded bg-slate-800 px-3 py-2 text-sm text-white hover:bg-slate-700"
           >
-            Add Place
+            Газар нэмэх
           </button>
         </div>
       </form>
