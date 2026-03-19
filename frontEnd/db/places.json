@@ -3,17 +3,26 @@
     "id": "place_alice_1",
     "title": "Хотын номын сангийн талбай",
     "description": "Мод, сандалтай, тайван уншихад тохиромжтой нээлттэй талбай.",
-    "imageUrl": "https://placehold.co/600x400/e2e8f0/334155?text=Alice+Place",
+    "imageUrl": "https://eguur.mn/wp-content/uploads/2019/11/nomiin-san.jpg",
     "address": "Энхтайвны өргөн чөлөө, Улаанбаатар",
     "creator": "user_alice_1",
     "creatorName": "Alice Johnson"
   },
   {
     "id": "place_bat_1",
-    "title": "Голын эргийн алхалтын зам",
-    "description": "Нар жаргах үеийн үзэмж сайтай, гол дагуух тайван алхалтын маршрут.",
-    "imageUrl": "https://placehold.co/600x400/e2e8f0/334155?text=Bat+Place",
-    "address": "Голын бүс, Улаанбаатар",
+    "title": "Гэр хаус",
+    "description": "Гэр",
+    "imageUrl": "https://pbs.twimg.com/media/EXjAMWaXsAQy8qs.jpg",
+    "address": "Улаанбаатар хот",
+    "creator": "user_bat_1",
+    "creatorName": "Bat-Erdene"
+  },
+  {
+    "id": "place_bat_2",
+    "title": "Талбай",
+    "description": "Хүүхдийн тоглоомын талбай",
+    "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQP46Rx7OA1ZNkeuS22TU4ig9asxM_LwAUTvQ&s",
+    "address": "Улаанбаатар хот",
     "creator": "user_bat_1",
     "creatorName": "Bat-Erdene"
   }
