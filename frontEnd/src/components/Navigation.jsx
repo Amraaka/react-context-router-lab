@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 function Navigation() {
-  const { isLoggedIn, userName, userId, logout } = useAuth();
+  const { isLoggedIn, userName, userId, userAvatarUrl, logout } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -38,6 +38,14 @@ function Navigation() {
               <span className="hidden text-sm text-slate-500 sm:inline">
                 {userName}
               </span>
+              <img
+                src={userAvatarUrl || 'https://i.pravatar.cc/100?img=1'}
+                alt={userName || 'user'}
+                className="h-9 w-9 rounded-full border border-slate-300 object-cover"
+                onError={(e) => {
+                  e.currentTarget.src = 'https://i.pravatar.cc/100?img=1';
+                }}
+              />
               <button
                 onClick={handleLogout}
                 className="rounded border border-slate-300 bg-white px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-50"

@@ -48,6 +48,17 @@ function UserPlaces() {
                 />
 
                 <div className="p-4">
+                  <div className="mb-2 flex items-center gap-2">
+                    <img
+                      src={place.creatorImageUrl || 'https://i.pravatar.cc/100?img=1'}
+                      alt={place.creatorName}
+                      className="h-8 w-8 rounded-full border border-slate-300 object-cover"
+                      onError={(e) => {
+                        e.currentTarget.src = 'https://i.pravatar.cc/100?img=1';
+                      }}
+                    />
+                    <span className="text-sm text-slate-600">{place.creatorName}</span>
+                  </div>
                   <h3 className="text-base font-medium text-slate-800">{place.title}</h3>
                 </div>
               </Link>

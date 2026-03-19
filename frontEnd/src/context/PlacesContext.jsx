@@ -9,11 +9,38 @@ export function usePlaces() {
 }
 
 const ensurePlacesSeeded = () => {
+  const readUsersMap = () => {
+    try {
+      const parsedUsers = JSON.parse(localStorage.getItem('users') || '[]');
+      if (!Array.isArray(parsedUsers)) return {};
+      return parsedUsers.reduce((acc, user) => {
+        acc[user.id] = user;
+        return acc;
+      }, {});
+    } catch {
+      return {};
+    }
+  };
+
+  const applyCreatorProfile = (placesList) => {
+    const usersMap = readUsersMap();
+    return placesList.map((place) => {
+      const creator = usersMap[place.creator];
+      if (!creator) return place;
+      return {
+        ...place,
+        creatorName: creator.name || place.creatorName,
+        creatorImageUrl: creator.imageUrl || place.creatorImageUrl || '',
+      };
+    });
+  };
+
   const storedPlaces = localStorage.getItem('places');
 
   if (!storedPlaces) {
-    localStorage.setItem('places', JSON.stringify(samplePlaces));
-    return samplePlaces;
+    const enrichedSamplePlaces = applyCreatorProfile(samplePlaces);
+    localStorage.setItem('places', JSON.stringify(enrichedSamplePlaces));
+    return enrichedSamplePlaces;
   }
 
   try {
@@ -29,14 +56,20 @@ const ensurePlacesSeeded = () => {
 
     if (missingSeedPlaces.length > 0) {
       const merged = [...parsed, ...missingSeedPlaces];
-      localStorage.setItem('places', JSON.stringify(merged));
-      return merged;
+      const normalized = applyCreatorProfile(merged);
+      localStorage.setItem('places', JSON.stringify(normalized));
+      return normalized;
     }
 
-    return parsed;
+    const normalized = applyCreatorProfile(parsed);
+    if (JSON.stringify(normalized) !== JSON.stringify(parsed)) {
+      localStorage.setItem('places', JSON.stringify(normalized));
+    }
+    return normalized;
   } catch {
-    localStorage.setItem('places', JSON.stringify(samplePlaces));
-    return samplePlaces;
+    const enrichedSamplePlaces = applyCreatorProfile(samplePlaces);
+    localStorage.setItem('places', JSON.stringify(enrichedSamplePlaces));
+    return enrichedSamplePlaces;
   }
 };
 

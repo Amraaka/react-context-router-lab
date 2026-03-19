@@ -5,6 +5,15 @@ import sampleUsers from '../../db/users.json';
 
 const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
+const isValidUrl = (url) => {
+  try {
+    new URL(url);
+    return true;
+  } catch {
+    return false;
+  }
+};
+
 const ensureUsersSeeded = () => {
   const storedUsers = localStorage.getItem('users');
 
@@ -20,9 +29,9 @@ const ensureUsersSeeded = () => {
     }
 
     const existingIds = new Set(parsed.map((user) => user.id));
-    const existingEmails = new Set(parsed.map((user) => user.email));
+    const existingGmails = new Set(parsed.map((user) => user.gmail || user.email));
     const missingSeedUsers = sampleUsers.filter(
-      (user) => !existingIds.has(user.id) && !existingEmails.has(user.email)
+      (user) => !existingIds.has(user.id) && !existingGmails.has(user.gmail)
     );
 
     if (missingSeedUsers.length > 0) {
@@ -47,7 +56,12 @@ function Authenticate() {
   const navigate = useNavigate();
 
   const [isLogin, setIsLogin] = useState(true);
-  const [formData, setFormData] = useState({ name: '', email: '', password: '' });
+  const [formData, setFormData] = useState({
+    name: '',
+    gmail: '',
+    password: '',
+    imageUrl: '',
+  });
   const [errors, setErrors] = useState({});
   const [globalError, setGlobalError] = useState('');
 
@@ -61,7 +75,7 @@ function Authenticate() {
     setIsLogin(loginMode);
     setErrors({});
     setGlobalError('');
-    setFormData({ name: '', email: '', password: '' });
+    setFormData({ name: '', gmail: '', password: '', imageUrl: '' });
   };
 
   const handleChange = (e) => {
@@ -75,11 +89,18 @@ function Authenticate() {
     if (!isLogin && !formData.name.trim()) {
       errs.name = 'Нэр оруулах шаардлагатай.';
     }
-    if (!isValidEmail(formData.email)) {
-      errs.email = 'Зөв имэйл хаяг оруулна уу.';
+    if (!isValidEmail(formData.gmail)) {
+      errs.gmail = 'Зөв gmail хаяг оруулна уу.';
     }
     if (formData.password.length < 6) {
       errs.password = 'Нууц үг хамгийн багадаа 6 тэмдэгт байх ёстой.';
+    }
+    if (!isLogin) {
+      if (!formData.imageUrl.trim()) {
+        errs.imageUrl = 'Профайл зургийн холбоос оруулах шаардлагатай.';
+      } else if (!isValidUrl(formData.imageUrl)) {
+        errs.imageUrl = 'Зөв холбоос оруулна уу (жишээ: https://example.com/photo.jpg).';
+      }
     }
     return errs;
   };
@@ -97,28 +118,29 @@ function Authenticate() {
 
     if (isLogin) {
       const existingUser = users.find(
-        (u) => u.email === formData.email && u.password === formData.password
+        (u) => (u.gmail || u.email) === formData.gmail && u.password === formData.password
       );
       if (!existingUser) {
         setGlobalError('Имэйл эсвэл нууц үг буруу байна. Дахин оролдоно уу.');
         return;
       }
-      login(existingUser.id, existingUser.name);
+      login(existingUser.id, existingUser.name, existingUser.imageUrl || '');
     } else {
-      if (users.find((u) => u.email === formData.email)) {
+      if (users.find((u) => (u.gmail || u.email) === formData.gmail)) {
         setGlobalError(
-          'Энэ имэйлээр бүртгэл аль хэдийн байна. Нэвтэрнэ үү.'
+          'Энэ gmail-ээр бүртгэл аль хэдийн байна. Нэвтэрнэ үү.'
         );
         return;
       }
       const newUser = {
         id: `user_${Date.now()}_${Math.random().toString(36).slice(2)}`,
         name: formData.name.trim(),
-        email: formData.email,
+        gmail: formData.gmail,
         password: formData.password,
+        imageUrl: formData.imageUrl,
       };
       localStorage.setItem('users', JSON.stringify([...users, newUser]));
-      login(newUser.id, newUser.name);
+      login(newUser.id, newUser.name, newUser.imageUrl);
     }
 
     navigate('/');
@@ -128,7 +150,7 @@ function Authenticate() {
     'w-full rounded border border-slate-300 bg-white px-3 py-2 text-sm outline-none focus:border-slate-500';
   const inputErrorClass = 'border-red-500';
   const sampleHint = sampleUsers
-    .map((user) => `${user.email} / ${user.password}`)
+    .map((user) => `${user.gmail} / ${user.password}`)
     .join(' | ');
 
   return (
@@ -194,22 +216,42 @@ function Authenticate() {
           )}
 
           <div className="flex flex-col gap-1">
-            <label htmlFor="email" className="text-sm text-slate-700">Имэйл</label>
+            <label htmlFor="gmail" className="text-sm text-slate-700">Gmail</label>
             <input
-              id="email"
-              name="email"
+              id="gmail"
+              name="gmail"
               type="email"
-              value={formData.email}
+              value={formData.gmail}
               onChange={handleChange}
-              placeholder="ner@example.com"
+              placeholder="ner@gmail.com"
               className={`${inputClass} ${
-                errors.email ? inputErrorClass : ''
+                errors.gmail ? inputErrorClass : ''
               }`}
             />
-            {errors.email && (
-              <span className="text-xs text-red-600">{errors.email}</span>
+            {errors.gmail && (
+              <span className="text-xs text-red-600">{errors.gmail}</span>
             )}
           </div>
+
+          {!isLogin && (
+            <div className="flex flex-col gap-1">
+              <label htmlFor="imageUrl" className="text-sm text-slate-700">Профайл зургийн холбоос</label>
+              <input
+                id="imageUrl"
+                name="imageUrl"
+                type="url"
+                value={formData.imageUrl}
+                onChange={handleChange}
+                placeholder="https://example.com/avatar.jpg"
+                className={`${inputClass} ${
+                  errors.imageUrl ? inputErrorClass : ''
+                }`}
+              />
+              {errors.imageUrl && (
+                <span className="text-xs text-red-600">{errors.imageUrl}</span>
+              )}
+            </div>
+          )}
 
           <div className="flex flex-col gap-1">
             <label htmlFor="password" className="text-sm text-slate-700">Нууц үг</label>

@@ -1,14 +1,16 @@
 [
   {
-    "id": "user_alice_1",
-    "name": "Alice Johnson",
-    "email": "alice@placeshare.dev",
-    "password": "password123"
+    "id": "user_saruul_1",
+    "name": "Саруул",
+    "gmail": "saruul.ub@gmail.com",
+    "password": "nomin123",
+    "imageUrl": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80"
   },
   {
-    "id": "user_bat_1",
-    "name": "Bat-Erdene",
-    "email": "bat@placeshare.dev",
-    "password": "password123"
+    "id": "user_temuulen_1",
+    "name": "Тэмүүлэн",
+    "gmail": "temuulen.mn@gmail.com",
+    "password": "ulaanbaatar123",
+    "imageUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80"
   }
 ]

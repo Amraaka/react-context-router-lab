@@ -3,7 +3,6 @@ import { usePlaces } from '../context/PlacesContext';
 
 function Users() {
   const { places } = usePlaces();
-  console.log('Places:', places);
 
   const usersMap = {};
   places.forEach((place) => {
@@ -11,6 +10,7 @@ function Users() {
       usersMap[place.creator] = {
         userId: place.creator,
         userName: place.creatorName,
+        userImageUrl: place.creatorImageUrl || '',
         placeCount: 0,
       };
     }
@@ -40,9 +40,20 @@ function Users() {
               key={user.userId}
               className="flex items-center gap-3 rounded border border-slate-200 bg-white p-4"
             >
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-slate-300 bg-slate-100 text-sm font-semibold text-slate-700">
-                {user.userName.charAt(0).toUpperCase()}
-              </div>
+              {user.userImageUrl ? (
+                <img
+                  src={user.userImageUrl}
+                  alt={user.userName}
+                  className="h-10 w-10 shrink-0 rounded-full border border-slate-300 object-cover"
+                  onError={(e) => {
+                    e.currentTarget.src = 'https://i.pravatar.cc/100?img=1';
+                  }}
+                />
+              ) : (
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-slate-300 bg-slate-100 text-sm font-semibold text-slate-700">
+                  {user.userName.charAt(0).toUpperCase()}
+                </div>
+              )}
 
               <div className="flex-1">
                 <h3 className="text-base font-medium text-slate-800">

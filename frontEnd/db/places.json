@@ -1,29 +1,32 @@
 [
   {
-    "id": "place_alice_1",
+    "id": "place_saruul_1",
     "title": "Хотын номын сангийн талбай",
     "description": "Мод, сандалтай, тайван уншихад тохиромжтой нээлттэй талбай.",
     "imageUrl": "https://eguur.mn/wp-content/uploads/2019/11/nomiin-san.jpg",
     "address": "Энхтайвны өргөн чөлөө, Улаанбаатар",
-    "creator": "user_alice_1",
-    "creatorName": "Alice Johnson"
+    "creator": "user_saruul_1",
+    "creatorName": "Саруул",
+    "creatorImageUrl": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80"
   },
   {
-    "id": "place_bat_1",
+    "id": "place_temuulen_1",
     "title": "Гэр хаус",
     "description": "Гэр",
     "imageUrl": "https://pbs.twimg.com/media/EXjAMWaXsAQy8qs.jpg",
     "address": "Улаанбаатар хот",
-    "creator": "user_bat_1",
-    "creatorName": "Bat-Erdene"
+    "creator": "user_temuulen_1",
+    "creatorName": "Тэмүүлэн",
+    "creatorImageUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80"
   },
   {
-    "id": "place_bat_2",
+    "id": "place_temuulen_2",
     "title": "Талбай",
     "description": "Хүүхдийн тоглоомын талбай",
     "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQP46Rx7OA1ZNkeuS22TU4ig9asxM_LwAUTvQ&s",
     "address": "Улаанбаатар хот",
-    "creator": "user_bat_1",
-    "creatorName": "Bat-Erdene"
+    "creator": "user_temuulen_1",
+    "creatorName": "Тэмүүлэн",
+    "creatorImageUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80"
   }
 ]

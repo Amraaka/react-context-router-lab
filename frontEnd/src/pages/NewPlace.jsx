@@ -13,7 +13,7 @@ const isValidUrl = (url) => {
 };
 
 function NewPlace() {
-  const { isLoggedIn, userId, userName } = useAuth();
+  const { isLoggedIn, userId, userName, userAvatarUrl } = useAuth();
   const { addPlace } = usePlaces();
   const navigate = useNavigate();
 
@@ -53,7 +53,12 @@ function NewPlace() {
       return;
     }
 
-    addPlace({ ...formData, creator: userId, creatorName: userName });
+    addPlace({
+      ...formData,
+      creator: userId,
+      creatorName: userName,
+      creatorImageUrl: userAvatarUrl,
+    });
 
     navigate(`/${userId}/places`);
   };
