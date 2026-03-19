@@ -3,7 +3,6 @@ import { useNavigate, Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { usePlaces } from '../context/PlacesContext';
 
-// Checks that the string is a well-formed absolute URL
 const isValidUrl = (url) => {
   try {
     new URL(url);
@@ -13,11 +12,7 @@ const isValidUrl = (url) => {
   }
 };
 
-// ─── NewPlace Page  (route: /places/new)  [PROTECTED] ────────────────────
-// Only accessible to logged-in users.
-// Validates all fields before calling addPlace() from PlacesContext.
 function NewPlace() {
-  // All hooks must be called before any early return
   const { isLoggedIn, userId, userName } = useAuth();
   const { addPlace } = usePlaces();
   const navigate = useNavigate();
@@ -30,9 +25,6 @@ function NewPlace() {
   });
   const [errors, setErrors] = useState({});
 
-  // ── Protected route guard ────────────────────────────────────────────
-  // <Navigate> renders a redirect without calling navigate() during render,
-  // which avoids a React warning about side-effects in the render phase.
   if (!isLoggedIn) return <Navigate to="/authenticate" replace />;
 
   const handleChange = (e) => {
@@ -61,10 +53,8 @@ function NewPlace() {
       return;
     }
 
-    // addPlace() is provided by PlacesContext; it persists to LocalStorage
     addPlace({ ...formData, creator: userId, creatorName: userName });
 
-    // Go to the creator's places page after saving
     navigate(`/${userId}/places`);
   };
 

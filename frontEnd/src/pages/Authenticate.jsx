@@ -3,7 +3,6 @@ import { useNavigate, Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import sampleUsers from '../../db/users.json';
 
-// Simple regex-based email validator
 const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
 const ensureUsersSeeded = () => {
@@ -43,21 +42,6 @@ const readUsers = () => {
   }
 };
 
-// ─── Authenticate Page  (route: /authenticate) ───────────────────────────
-// Dual Login / Signup form with tab switching.
-//
-// Signup flow:
-//   1. Validate fields (name, email, password).
-//   2. Check LocalStorage 'users' array for duplicate email.
-//   3. Append new user to the array and call login().
-//
-// Login flow:
-//   1. Validate fields.
-//   2. Find user by email + password match in 'users' array.
-//   3. Call login() with their id and name.
-//
-// NOTE: Passwords are stored in plain text here for simplicity in a lab
-//       setting. A real application must hash passwords server-side.
 function Authenticate() {
   const { isLoggedIn, login } = useAuth();
   const navigate = useNavigate();
@@ -67,15 +51,12 @@ function Authenticate() {
   const [errors, setErrors] = useState({});
   const [globalError, setGlobalError] = useState('');
 
-  // Ensure there is at least one sample account for first-time login.
   useEffect(() => {
     ensureUsersSeeded();
   }, []);
 
-  // Redirect already-authenticated users away from this page
   if (isLoggedIn) return <Navigate to="/" replace />;
 
-  // Switch between Login and Signup tabs, clearing any stale errors
   const switchMode = (loginMode) => {
     setIsLogin(loginMode);
     setErrors({});
@@ -85,12 +66,10 @@ function Authenticate() {
 
   const handleChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-    // Remove the per-field error as the user starts correcting it
     setErrors((prev) => ({ ...prev, [e.target.name]: '' }));
     setGlobalError('');
   };
 
-  // Returns an object of field-level error messages (empty = valid)
   const validate = () => {
     const errs = {};
     if (!isLogin && !formData.name.trim()) {
@@ -117,7 +96,6 @@ function Authenticate() {
     const users = readUsers();
 
     if (isLogin) {
-      // ── LOGIN ──────────────────────────────────────────────────────────
       const existingUser = users.find(
         (u) => u.email === formData.email && u.password === formData.password
       );
@@ -127,7 +105,6 @@ function Authenticate() {
       }
       login(existingUser.id, existingUser.name);
     } else {
-      // ── SIGNUP ─────────────────────────────────────────────────────────
       if (users.find((u) => u.email === formData.email)) {
         setGlobalError(
           'Энэ имэйлээр бүртгэл аль хэдийн байна. Нэвтэрнэ үү.'
@@ -140,7 +117,6 @@ function Authenticate() {
         email: formData.email,
         password: formData.password,
       };
-      // Persist the new user then log them in
       localStorage.setItem('users', JSON.stringify([...users, newUser]));
       login(newUser.id, newUser.name);
     }
@@ -165,7 +141,6 @@ function Authenticate() {
           Жишээ нэвтрэх мэдээлэл: {sampleHint}
         </p>
 
-        {/* Simple mode switcher */}
         <div className="mb-4 grid grid-cols-2 gap-2">
           <button
             type="button"
@@ -198,7 +173,6 @@ function Authenticate() {
             </p>
           )}
 
-          {/* Name field — only shown on Signup */}
           {!isLogin && (
             <div className="flex flex-col gap-1">
               <label htmlFor="name" className="text-sm text-slate-700">Нэр</label>

@@ -17,7 +17,7 @@ function Navigation() {
           to="/"
           className="text-lg font-semibold text-slate-800 no-underline"
         >
-          PlaceShare
+        Газар
         </Link>
 
         <nav className="flex items-center gap-3">
