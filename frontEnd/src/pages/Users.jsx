@@ -1,15 +1,10 @@
 import { Link } from 'react-router-dom';
 import { usePlaces } from '../context/PlacesContext';
 
-// ─── Users Page  (route: /) ───────────────────────────────────────────────
-// Derives a unique list of users from the places stored in PlacesContext.
-// Each user is shown as a card with their place count and a link to their
-// places page.
 function Users() {
   const { places } = usePlaces();
+  console.log('Places:', places);
 
-  // Build a map of userId → { userId, userName, placeCount }
-  // by iterating over every place once.
   const usersMap = {};
   places.forEach((place) => {
     if (!usersMap[place.creator]) {
@@ -45,7 +40,6 @@ function Users() {
               key={user.userId}
               className="flex items-center gap-3 rounded border border-slate-200 bg-white p-4"
             >
-              {/* First letter of the name as an avatar */}
               <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-slate-300 bg-slate-100 text-sm font-semibold text-slate-700">
                 {user.userName.charAt(0).toUpperCase()}
               </div>

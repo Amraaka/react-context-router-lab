@@ -12,11 +12,7 @@ const isValidUrl = (url) => {
   }
 };
 
-// ─── UpdatePlace Page  (route: /places/:pid)  [PROTECTED] ────────────────
-// Pre-fills the form with the existing place's data.
-// Only accessible to logged-in users.
 function UpdatePlace() {
-  // All hooks must be called unconditionally (React rules of hooks)
   const { pid } = useParams();
   const { isLoggedIn } = useAuth();
   const { places, updatePlace } = usePlaces();
@@ -24,7 +20,6 @@ function UpdatePlace() {
 
   const place = places.find((p) => p.id === pid);
 
-  // Initialise form with the existing values (or empty strings if not found)
   const [formData, setFormData] = useState({
     title:       place?.title       || '',
     description: place?.description || '',
@@ -33,10 +28,8 @@ function UpdatePlace() {
   });
   const [errors, setErrors] = useState({});
 
-  // ── Protected route guard ────────────────────────────────────────────
   if (!isLoggedIn) return <Navigate to="/authenticate" replace />;
 
-  // Edge case: place id not found in LocalStorage
   if (!place) {
     return (
       <div className="mx-auto w-full max-w-5xl px-4 py-10 sm:px-6">
@@ -71,7 +64,6 @@ function UpdatePlace() {
       return;
     }
 
-    // updatePlace() merges changes and persists to LocalStorage via context
     updatePlace(pid, formData);
     navigate(`/${place.creator}/places`);
   };

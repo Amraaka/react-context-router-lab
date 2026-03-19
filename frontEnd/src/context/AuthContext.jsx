@@ -20,13 +20,32 @@ export function useAuth() {
 }
 
 export function AuthProvider({ children }) {
+  const emptyAuthState = {
+    isLoggedIn: false,
+    userId: null,
+    userName: null,
+    userAvatarUrl: '',
+  };
+
   // Lazy initializer: read from LocalStorage once on mount.
   // localStorage stores strings, so we JSON.parse it back to an object.
   const [authState, setAuthState] = useState(() => {
     const stored = localStorage.getItem('auth');
-    return stored
-      ? JSON.parse(stored)
-      : { isLoggedIn: false, userId: null, userName: null };
+
+    if (!stored) {
+      return emptyAuthState;
+    }
+
+    try {
+      const parsed = JSON.parse(stored);
+      return {
+        ...emptyAuthState,
+        ...parsed,
+        userAvatarUrl: parsed?.userAvatarUrl || '',
+      };
+    } catch {
+      return emptyAuthState;
+    }
   });
 
   // Sync to LocalStorage every time authState changes.
@@ -35,13 +54,13 @@ export function AuthProvider({ children }) {
   }, [authState]);
 
   // Called after a successful login or signup
-  const login = (userId, userName) => {
-    setAuthState({ isLoggedIn: true, userId, userName });
+  const login = (userId, userName, userAvatarUrl = '') => {
+    setAuthState({ isLoggedIn: true, userId, userName, userAvatarUrl });
   };
 
   // Clears the session from state (LocalStorage is updated via the effect)
   const logout = () => {
-    setAuthState({ isLoggedIn: false, userId: null, userName: null });
+    setAuthState(emptyAuthState);
   };
 
   // Spread authState so consumers get isLoggedIn, userId, userName directly,

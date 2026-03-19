@@ -1,14 +1,12 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
-// Navigation reads the isLoggedIn flag from AuthContext and renders
-// a different set of links depending on the user's session state.
 function Navigation() {
   const { isLoggedIn, userName, userId, logout } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    logout(); // clears state + LocalStorage via AuthContext
+    logout(); 
     navigate('/');
   };
 
@@ -24,7 +22,6 @@ function Navigation() {
 
         <nav className="flex items-center gap-3">
           {isLoggedIn ? (
-            // ── Logged-in links ──────────────────────────────────────────
             <>
               <Link
                 to={`/${userId}/places`}
@@ -49,7 +46,6 @@ function Navigation() {
               </button>
             </>
           ) : (
-            // ── Guest links ──────────────────────────────────────────────
             <>
               <Link
                 to="/"
