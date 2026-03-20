@@ -7,14 +7,12 @@ function PlaceDetail() {
   const { places } = usePlaces();
 
   const place = places.find((p) => p.id === pid);
+  console.log(place);
 
   if (!place) {
     return (
       <div className="mx-auto w-full max-w-4xl px-4 py-10">
         <h1 className="text-xl font-semibold text-slate-800">Газар олдсонгүй</h1>
-        <p className="mt-3 text-sm text-slate-600">
-          Энэ газрын мэдээлэл устсан эсвэл буруу холбоос байна.
-        </p>
         <Link
           to="/"
           className="mt-4 inline-flex rounded bg-slate-800 px-3 py-2 text-sm text-white no-underline hover:bg-slate-700"
