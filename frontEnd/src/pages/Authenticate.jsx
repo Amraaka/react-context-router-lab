@@ -80,10 +80,8 @@ function Authenticate() {
   };
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    const finalValue = name === 'age' ? (value ? Number(value) : '') : value;
-    setFormData((prev) => ({ ...prev, [name]: finalValue }));
-    setErrors((prev) => ({ ...prev, [name]: '' }));
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    setErrors((prev) => ({ ...prev, [e.target.name]: '' }));
     setGlobalError('');
   };
 
@@ -144,7 +142,7 @@ function Authenticate() {
         gmail: formData.gmail,
         password: formData.password,
         imageUrl: formData.imageUrl,
-        age: formData.age,
+        age: Number(formData.age),
       };
       localStorage.setItem('users', JSON.stringify([...users, newUser]));
       login(newUser.id, newUser.name, newUser.imageUrl);

@@ -25,7 +25,6 @@ function Users() {
     };
   });
 
-  // Then, count places for each user
   places.forEach((place) => {
     if (usersMap[place.creator]) {
       usersMap[place.creator].placeCount++;
