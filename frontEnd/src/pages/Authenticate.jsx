@@ -160,7 +160,7 @@ function Authenticate() {
           {isLogin ? 'Нэвтрэх' : 'Бүртгүүлэх'}
         </h1>
         <p className="mb-4 text-center text-xs text-slate-500">
-          Жишээ нэвтрэх мэдээлэл: {sampleHint}
+          {sampleHint}
         </p>
 
         <div className="mb-4 grid grid-cols-2 gap-2">

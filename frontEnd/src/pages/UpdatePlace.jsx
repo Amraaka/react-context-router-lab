@@ -83,7 +83,7 @@ function UpdatePlace() {
         className="flex flex-col gap-3 rounded-lg border border-slate-200 bg-white p-5"
         noValidate
       >
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-1 ">
           <label htmlFor="title" className="text-sm text-slate-700">Гарчиг</label>
           <input
             id="title" name="title" type="text"
