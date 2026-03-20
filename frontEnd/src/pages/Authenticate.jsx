@@ -61,6 +61,7 @@ function Authenticate() {
     gmail: '',
     password: '',
     imageUrl: '',
+    age: null,  
   });
   const [errors, setErrors] = useState({});
   const [globalError, setGlobalError] = useState('');
@@ -75,12 +76,14 @@ function Authenticate() {
     setIsLogin(loginMode);
     setErrors({});
     setGlobalError('');
-    setFormData({ name: '', gmail: '', password: '', imageUrl: '' });
+    setFormData({ name: '', gmail: '', password: '', imageUrl: '', age: null });
   };
 
   const handleChange = (e) => {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-    setErrors((prev) => ({ ...prev, [e.target.name]: '' }));
+    const { name, value } = e.target;
+    const finalValue = name === 'age' ? (value ? Number(value) : '') : value;
+    setFormData((prev) => ({ ...prev, [name]: finalValue }));
+    setErrors((prev) => ({ ...prev, [name]: '' }));
     setGlobalError('');
   };
 
@@ -100,6 +103,9 @@ function Authenticate() {
         errs.imageUrl = 'Профайл зургийн холбоос оруулах шаардлагатай.';
       } else if (!isValidUrl(formData.imageUrl)) {
         errs.imageUrl = 'Зөв холбоос оруулна уу (жишээ: https://example.com/photo.jpg).';
+      }
+      if (!formData.age || formData.age < 1 || formData.age > 120) {
+        errs.age = 'Нас 1-120 хооронд байх ёстой.';
       }
     }
     return errs;
@@ -138,6 +144,7 @@ function Authenticate() {
         gmail: formData.gmail,
         password: formData.password,
         imageUrl: formData.imageUrl,
+        age: formData.age,
       };
       localStorage.setItem('users', JSON.stringify([...users, newUser]));
       login(newUser.id, newUser.name, newUser.imageUrl);
@@ -252,6 +259,26 @@ function Authenticate() {
               )}
             </div>
           )}
+          {!isLogin && (
+            <div className="flex flex-col gap-1">
+              <label htmlFor="age" className="text-sm text-slate-700">Нас</label>
+              <input
+                id="age"
+                name="age"
+                type="number"
+                value={formData.age}
+                onChange={handleChange}
+                placeholder="Таны нас"
+                className={`${inputClass} ${
+                  errors.age ? inputErrorClass : ''
+                }`}
+              />
+              {errors.age && (
+                <span className="text-xs text-red-600">{errors.age}</span>
+              )}
+            </div>
+          )}
+         
 
           <div className="flex flex-col gap-1">
             <label htmlFor="password" className="text-sm text-slate-700">Нууц үг</label>
@@ -270,6 +297,8 @@ function Authenticate() {
               <span className="text-xs text-red-600">{errors.password}</span>
             )}
           </div>
+
+          
 
           <button
             type="submit"

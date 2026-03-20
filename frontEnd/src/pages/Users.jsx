@@ -1,23 +1,39 @@
 import { Link } from 'react-router-dom';
 import { usePlaces } from '../context/PlacesContext';
 
+const getStoredUsers = () => {
+  try {
+    const stored = localStorage.getItem('users');
+    return stored ? JSON.parse(stored) : [];
+  } catch {
+    return [];
+  }
+};
+
 function Users() {
   const { places } = usePlaces();
+  const storedUsers = getStoredUsers();
 
   const usersMap = {};
+  
+  storedUsers.forEach((user) => {
+    usersMap[user.id] = {
+      userId: user.id,
+      userName: user.name,
+      userImageUrl: user.imageUrl || '',
+      placeCount: 0,
+    };
+  });
+
+  // Then, count places for each user
   places.forEach((place) => {
-    if (!usersMap[place.creator]) {
-      usersMap[place.creator] = {
-        userId: place.creator,
-        userName: place.creatorName,
-        userImageUrl: place.creatorImageUrl || '',
-        placeCount: 0,
-      };
+    if (usersMap[place.creator]) {
+      usersMap[place.creator].placeCount++;
     }
-    usersMap[place.creator].placeCount++;
   });
 
   const users = Object.values(usersMap);
+  console.log(users);
 
   return (
     <div className="mx-auto w-full max-w-4xl px-4 py-8">
