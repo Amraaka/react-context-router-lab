@@ -22,6 +22,8 @@ function NewPlace() {
     description: '',
     imageUrl: '',
     address: '',
+    latitude: '',
+    longitude: '',
   });
   const [errors, setErrors] = useState({});
 
@@ -42,6 +44,22 @@ function NewPlace() {
       errs.imageUrl = 'Зөв холбоос оруулна уу (жишээ: https://example.com/photo.jpg).';
     }
     if (!formData.address.trim())     errs.address = 'Хаяг оруулах шаардлагатай.';
+
+    const lat = Number(formData.latitude);
+    const lng = Number(formData.longitude);
+
+    if (formData.latitude.trim() === '') {
+      errs.latitude = 'Өргөрөг оруулах шаардлагатай.';
+    } else if (Number.isNaN(lat) || lat < -90 || lat > 90) {
+      errs.latitude = 'Өргөрөг -90-аас 90 хооронд байх ёстой.';
+    }
+
+    if (formData.longitude.trim() === '') {
+      errs.longitude = 'Уртраг оруулах шаардлагатай.';
+    } else if (Number.isNaN(lng) || lng < -180 || lng > 180) {
+      errs.longitude = 'Уртраг -180-аас 180 хооронд байх ёстой.';
+    }
+
     return errs;
   };
 
@@ -54,7 +72,14 @@ function NewPlace() {
     }
 
     addPlace({
-      ...formData,
+      title: formData.title,
+      description: formData.description,
+      imageUrl: formData.imageUrl,
+      address: formData.address,
+      location: {
+        lat: Number(formData.latitude),
+        lng: Number(formData.longitude),
+      },
       creator: userId,
       creatorName: userName,
       creatorImageUrl: userAvatarUrl,
@@ -135,6 +160,38 @@ function NewPlace() {
           {errors.address && (
             <span className="text-xs text-red-600">{errors.address}</span>
           )}
+        </div>
+
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+          <div className="flex flex-col gap-1">
+            <label htmlFor="latitude" className="text-sm text-slate-700">Өргөрөг (Latitude)</label>
+            <input
+              id="latitude" name="latitude" type="number" step="any"
+              value={formData.latitude} onChange={handleChange}
+              placeholder="47.9184"
+              className={`${inputClass} ${
+                errors.latitude ? inputErrorClass : ''
+              }`}
+            />
+            {errors.latitude && (
+              <span className="text-xs text-red-600">{errors.latitude}</span>
+            )}
+          </div>
+
+          <div className="flex flex-col gap-1">
+            <label htmlFor="longitude" className="text-sm text-slate-700">Уртраг (Longitude)</label>
+            <input
+              id="longitude" name="longitude" type="number" step="any"
+              value={formData.longitude} onChange={handleChange}
+              placeholder="106.9177"
+              className={`${inputClass} ${
+                errors.longitude ? inputErrorClass : ''
+              }`}
+            />
+            {errors.longitude && (
+              <span className="text-xs text-red-600">{errors.longitude}</span>
+            )}
+          </div>
         </div>
 
         <div className="mt-2 flex justify-end gap-2">

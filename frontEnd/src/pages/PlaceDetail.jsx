@@ -65,6 +65,15 @@ function PlaceDetail() {
             <p className="mt-1 text-slate-700">{place.address}</p>
           </section>
 
+          {place.location && (
+            <section>
+              <h2 className="text-sm font-medium uppercase tracking-wide text-slate-500">Байршил</h2>
+              <p className="mt-1 text-slate-700">
+                Lat: {place.location.lat}, Lng: {place.location.lng}
+              </p>
+            </section>
+          )}
+
           <section>
             <h2 className="text-sm font-medium uppercase tracking-wide text-slate-500">Тайлбар</h2>
             <p className="mt-1 whitespace-pre-line text-slate-700">{place.description}</p>
