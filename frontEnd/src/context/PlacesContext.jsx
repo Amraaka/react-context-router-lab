@@ -62,9 +62,7 @@ const ensurePlacesSeeded = () => {
     }
 
     const normalized = applyCreatorProfile(parsed);
-    if (JSON.stringify(normalized) !== JSON.stringify(parsed)) {
-      localStorage.setItem('places', JSON.stringify(normalized));
-    }
+    localStorage.setItem('places', JSON.stringify(normalized));
     return normalized;
   } catch {
     const enrichedSamplePlaces = applyCreatorProfile(samplePlaces);

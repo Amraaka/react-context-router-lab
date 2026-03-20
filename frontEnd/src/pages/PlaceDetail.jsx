@@ -7,7 +7,6 @@ function PlaceDetail() {
   const { places } = usePlaces();
 
   const place = places.find((p) => p.id === pid);
-  console.log(place);
 
   if (!place) {
     return (
